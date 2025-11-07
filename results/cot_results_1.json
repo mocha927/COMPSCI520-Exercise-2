@@ -1,0 +1,117 @@
+{
+    "prompt": "Implement the python function given by this definition:\n\nfrom typing import List\n\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    \"\"\" Input to this function is a string containing multiple groups of nested parentheses. Your goal is to\n    separate those group into separate strings and return the list of those.\n    Separate groups are balanced (each open brace is properly closed) and not nested within each other\n    Ignore any spaces in the input string.\n    >>> separate_paren_groups('( ) (( )) (( )( ))')\n    ['()', '(())', '(()())']\n    \"\"\"\n\n\nLet's think step by step.\n",
+    "test": "\n\nimport numpy as np\n\ndef is_floats(x) -> bool:\n    # check if it is float; List[float]; Tuple[float]\n    if isinstance(x, float):\n        return True\n    if isinstance(x, (list, tuple)):\n        return all(isinstance(i, float) for i in x)\n    if isinstance(x, np.ndarray):\n        return x.dtype == np.float64 or x.dtype == np.float32\n    return False\n\n\ndef assertion(out, exp, atol):\n    exact_match = out == exp\n\n    if atol == 0 and is_floats(exp):\n        atol = 1e-6\n    if not exact_match and atol != 0:\n        assert np.allclose(out, exp, rtol=1e-07, atol=atol)\n    else:\n        assert exact_match\n\n\ndef check(candidate):\n    inputs = [['(()()) ((())) () ((())()())'], ['() (()) ((())) (((())))'], ['(()(())((())))'], ['( ) (( )) (( )( ))'], ['()'], ['(())'], ['((()))()'], ['()()()'], ['()(()())()'], ['(((()()((())))))'], ['((()()))(())'], ['()(()()((())))'], ['()()()(((()())))()(())'], ['(((())))()((()()))'], ['(((())))()(((())))()((()()))((()()))'], ['((((((())))()(((())))()((()()))((()())))()))(())'], ['()(()())()(()()((())))()'], ['()(()()((()))(((()()((()))))))'], ['()()((((()()((()))))))'], ['()()((((()()((()))))()()()))'], ['()()()(((()())))()((()))'], ['((()()((((((())))()(((())))()((()()))((()())))()))(())))(())'], ['()()()(()()()(((()())))()((()))((()())))()(())'], ['()()(()())()(()())()'], ['(((()))())()((()()))'], ['()()(()())()(()()((()))())()'], ['()()((((()()((()))))))()(()())()(()()((())))()'], ['()()(((((()()((()))))))()(()())()(()))()'], ['((() ((()()((((((  )))))))()()))) (()(()))()(()())'], ['((( ) ((( )) () (( ))))) (((( )))) (( ))'], ['(()) (()) ((() ((())))()) ((())(()))()'], ['((()) ()) ()(()) (()(())())'], ['((()) (())() (())(()))()(((())))((()()))((()))'], ['(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())))'], ['(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())))()()()()()'], ['()()()()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()'], ['() ( ) (( )) ((( )))()(()()()) ((()())())() (()()()()()())'], ['((( ) (((()) (()) ((() ((())))()) ((())(()))()( )) () (( ))))) (((( )))) (( ))'], ['(()()()()()())'], ['(()) (()) '], ['((( ) (((())) (()) ((() ((())((((((() ((() ((() ())))))))))))()) ((())(()))()( )) () (( ))))) (((( )))) (( ))'], ['(()) ((((() ((()()((((((  )))))))()()))) (()(()))()(()()))) '], ['((( ) (((()(())())) (()) ((() ((())((((((() ((() ((() ())))))))))))()) ((())(()))()( )) () (( ))))) (((( )))) (( ))'], ['()(())'], ['(())()'], ['(()(()))'], ['((( ) (((()(())()) (()) ((() ((())((((((() ((() ((() ())))))))))))()) ((())(()))()( )) (())(()))()((((()))((())))((()()))((())))() (( ))))) (((( )))) (( ))'], ['(())(())'], [' (()) (()) ((() ((())))()) ((())(()))()'], ['((())(()))()'], ['()((()()()()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()))'], ['(()(())())'], [''], ['((( ) )(((())) (()(())(( ))))) (((( )))) (( ))'], ['((()) ()) ()(( )) (()(())())'], ['(()()()())'], ['()(()())()(())'], ['()()()()()()((()))()()()((()))()()(())'], ['(()(()))()(()())'], ['((()())())()'], ['((( ) (((()) (()) ((() ((()))))()) (()()()()()())((())(()))()( )) () (( ())))) (((( )))) (( ))'], ['((( )) ()) ()(()) (()(())())'], ['((((((()) ((() ((() ())))))))))'], ['(((()) ()) ())'], ['(())((()(((())))((()()))(((((()) (())() (())(())((())((( ) (((()) (()) ((() ((())))()) (()()()()()())((())(()))()( )) () (( ())))) (((( )))) (( )))))()))((())))))'], ['( ) (( )) (( )( ))       ()()()'], ['(())(()())()((((((()))))))'], ['( )'], ['((()))'], ['((( ) ((( )) () (( )))))  (((( )))) (( ))'], ['((( ) ((( )((( ) ((( )) () (( ))))) (((( )))) (( ))) () (( ))))) (((( )))) (( ))'], ['() ( ) (( )) ((( )))()(()()()) ((()())())()(()()()()()())'], ['(((())))(((())))(((())))(((())))(((())))(((())))(((())))(((())()(())))(((())))(((())))()()()()()'], ['((()())())()(()()()()()())'], ['((()))(()()())'], ['((( ))) (( ))'], ['(((())))'], ['((() ((()()))))()(()()())()(()())'], ['(((((((() (((()()))))))))))'], ['((()))()(())'], ['()()()()()()((()))()()()((()))()()()((()))()()()((()))()()()'], ['(()())()'], ['((())(()(()(()))()(()())()()((()))()()()((()))()))()'], ['((( ) ((( )) () (( ))))) (((( )) )) (( ))'], ['((()())())()(()(((()())()(()()))()(()())()()((())))()()()((())())()()()())'], ['(((()())))'], ['(())()()()((()))()()()']]\n    results = [['(()())', '((()))', '()', '((())()())'], ['()', '(())', '((()))', '(((())))'], ['(()(())((())))'], ['()', '(())', '(()())'], ['()'], ['(())'], ['((()))', '()'], ['()', '()', '()'], ['()', '(()())', '()'], ['(((()()((())))))'], ['((()()))', '(())'], ['()', '(()()((())))'], ['()', '()', '()', '(((()())))', '()', '(())'], ['(((())))', '()', '((()()))'], ['(((())))', '()', '(((())))', '()', '((()()))', '((()()))'], ['((((((())))()(((())))()((()()))((()())))()))', '(())'], ['()', '(()())', '()', '(()()((())))', '()'], ['()', '(()()((()))(((()()((()))))))'], ['()', '()', '((((()()((()))))))'], ['()', '()', '((((()()((()))))()()()))'], ['()', '()', '()', '(((()())))', '()', '((()))'], ['((()()((((((())))()(((())))()((()()))((()())))()))(())))', '(())'], ['()', '()', '()', '(()()()(((()())))()((()))((()())))', '()', '(())'], ['()', '()', '(()())', '()', '(()())', '()'], ['(((()))())', '()', '((()()))'], ['()', '()', '(()())', '()', '(()()((()))())', '()'], ['()', '()', '((((()()((()))))))', '()', '(()())', '()', '(()()((())))', '()'], ['()', '()', '(((((()()((()))))))()(()())()(()))', '()'], ['((()((()()(((((()))))))()())))', '(()(()))', '()', '(()())'], ['((()((())()(()))))', '(((())))', '(())'], ['(())', '(())', '((()((())))())', '((())(()))', '()'], ['((())())', '()', '(())', '(()(())())'], ['((())(())()(())(()))', '()', '(((())))', '((()()))', '((()))'], ['(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))'], ['(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '()', '()', '()', '()', '()'], ['()', '()', '()', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()'], ['()', '()', '(())', '((()))', '()', '(()()())', '((()())())', '()', '(()()()()()())'], ['((()(((())(())((()((())))())((())(()))()())()(()))))', '(((())))', '(())'], ['(()()()()()())'], ['(())', '(())'], ['((()(((()))(())((()((())((((((()((()((()())))))))))))())((())(()))()())()(()))))', '(((())))', '(())'], ['(())', '((((()((()()(((((()))))))()())))(()(()))()(()())))'], ['((()(((()(())()))(())((()((())((((((()((()((()())))))))))))())((())(()))()())()(()))))', '(((())))', '(())'], ['()', '(())'], ['(())', '()'], ['(()(()))'], ['((()(((()(())())(())((()((())((((((()((()((()())))))))))))())((())(()))()())(())(()))()((((()))((())))((()()))((())))()(()))))', '(((())))', '(())'], ['(())', '(())'], ['(())', '(())', '((()((())))())', '((())(()))', '()'], ['((())(()))', '()'], ['()', '((()()()()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()((()))()()()))'], ['(()(())())'], [], ['((())(((()))(()(())(()))))', '(((())))', '(())'], ['((())())', '()', '(())', '(()(())())'], ['(()()()())'], ['()', '(()())', '()', '(())'], ['()', '()', '()', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '(())'], ['(()(()))', '()', '(()())'], ['((()())())', '()'], ['((()(((())(())((()((()))))())(()()()()()())((())(()))()())()((()))))', '(((())))', '(())'], ['((())())', '()', '(())', '(()(())())'], ['((((((())((()((()())))))))))'], ['(((())())())'], ['(())', '((()(((())))((()()))(((((())(())()(())(())((())((()(((())(())((()((())))())(()()()()()())((())(()))()())()((()))))(((())))(()))))()))((())))))'], ['()', '(())', '(()())', '()', '()', '()'], ['(())', '(()())', '()', '((((((()))))))'], ['()'], ['((()))'], ['((()((())()(()))))', '(((())))', '(())'], ['((()((()((()((())()(()))))(((())))(()))()(()))))', '(((())))', '(())'], ['()', '()', '(())', '((()))', '()', '(()()())', '((()())())', '()', '(()()()()()())'], ['(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())))', '(((())()(())))', '(((())))', '(((())))', '()', '()', '()', '()', '()'], ['((()())())', '()', '(()()()()()())'], ['((()))', '(()()())'], ['((()))', '(())'], ['(((())))'], ['((()((()()))))', '()', '(()()())', '()', '(()())'], ['(((((((()(((()()))))))))))'], ['((()))', '()', '(())'], ['()', '()', '()', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()', '((()))', '()', '()', '()'], ['(()())', '()'], ['((())(()(()(()))()(()())()()((()))()()()((()))()))', '()'], ['((()((())()(()))))', '(((())))', '(())'], ['((()())())', '()', '(()(((()())()(()()))()(()())()()((())))()()()((())())()()()())'], ['(((()())))'], ['(())', '()', '()', '()', '((()))', '()', '()', '()']]\n    for i, (inp, exp) in enumerate(zip(inputs, results)):\n        assertion(candidate(*inp), exp, 0)\n",
+    "results": [
+        {
+            "pass@1": 0.4,
+            "pass@5": 0.9761904761904762,
+            "pass@10": 1.0
+        },
+        {
+            "0": [
+                [
+                    0,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: list index out of range",
+                        "completion_id": 0
+                    }
+                ],
+                [
+                    1,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: name 'List' is not defined",
+                        "completion_id": 1
+                    }
+                ],
+                [
+                    2,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: name 'List' is not defined",
+                        "completion_id": 2
+                    }
+                ],
+                [
+                    3,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 3
+                    }
+                ],
+                [
+                    4,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: name 'List' is not defined",
+                        "completion_id": 4
+                    }
+                ],
+                [
+                    5,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 5
+                    }
+                ],
+                [
+                    6,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 6
+                    }
+                ],
+                [
+                    7,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: name 'List' is not defined",
+                        "completion_id": 7
+                    }
+                ],
+                [
+                    8,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: name 'List' is not defined",
+                        "completion_id": 8
+                    }
+                ],
+                [
+                    9,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 9
+                    }
+                ]
+            ]
+        }
+    ],
+    "candidates": [
+        "from typing import List\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Remove spaces from the input string\n    paren_string = paren_string.replace(\" \", \"\")\n    \n    result = []\n    stack = []  # To keep track of groups\n    \n    for char in paren_string:\n        if char == '(':\n            stack.append(char)\n        elif char == ')' and stack[-1] == '(':\n            stack.pop()\n            if len(stack) > 0:\n                stack.pop()  # Pop the innermost parenthesis\n            \n            while len(stack) > 0:\n                item = ''.join(stack).strip()\n                result.append(item)\n                stack.clear()\n                \n    return result\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Expected output: ['()', '(())', '(()())']",
+        "def separate_paren_groups(paren_string: str) -> List[str]:\n    paren_stack = []\n    paren_list = []\n\n    # Process each character in the input string\n    for i, char in enumerate(paren_string):\n        if char == '(':\n            paren_stack.append(i)\n        elif char == ')':\n            if len(paren_stack) > 0:\n                start_index = paren_stack.pop()\n                paren_group = paren_string[start_index:i+1]\n                paren_list.append(paren_group)\n\n    return paren_list\n\n# Example usage\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))",
+        "import re\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Split the string at every occurrence of '(' and ')'\n    groups = paren_string.split('(?:(?![^()]*\\))|(?![^()]*\\()\\d*),')\n    \n    # Filter out empty or invalid groups\n    valid_groups = [group for group in groups if len(group.strip()) % 2 == 0]\n    \n    return valid_groups\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Output: ['()', '(())', '(()())']",
+        "from typing import List\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Convert the input string to lowercase for uniformity\n    paren_string = paren_string.lower()\n    \n    # Remove spaces\n    paren_string = paren_string.replace(\" \", \"\")\n    \n    # Initialize stack and results list\n    stack = []\n    results = []\n    \n    # Iterate over the characters in the string\n    i = 0\n    while i < len(paren_string):\n        if paren_string[i] == '(':\n            # Start a new group\n            stack.append(i)\n        elif paren_string[i] == ')' and stack:\n            # End a group\n            end_index = stack.pop()\n            # Add the group to the results\n            results.append(paren_string[end_index + 1:i])\n        \n        i += 1\n    \n    return results\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Expected output: ['()', '(())', '(()())']",
+        "def separate_paren_groups(paren_string: str) -> List[str]:\n    result = []\n    stack = []  # To keep track of the indices where opening brackets are located\n\n    for i, char in enumerate(paren_string):\n        if char == '(':\n            stack.append(i)\n        elif char == ')' and len(stack) > 0:\n            j = stack.pop()\n            # Collect the substring between the current index and the last opened bracket\n            result.append(paren_string[j:i+1])\n    \n    return result\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Expected output: ['()', '(())', '(()())']",
+        "from typing import List\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Remove leading and trailing whitespaces\n    paren_string = paren_string.strip()\n    \n    # Initialize an empty list for the result\n    result = []\n    \n    # Stack to keep track of opening parentheses\n    stack = []\n    \n    # Iterate over each character in the input string\n    for char in paren_string:\n        if char == '(':\n            # Push opening parenthesis onto the stack\n            stack.append(char)\n        elif char == ')':\n            # Pop the top element from the stack if it matches\n            if len(stack) > 0:\n                stack.pop()\n            else:\n                # If there are no matching opening parentheses, ignore this character\n                continue\n                \n    # Convert the stack to a list and append to the result\n    while len(stack) > 0:\n        result.append(stack.pop())\n        \n    return result\n\n# Test cases\nprint(separate_paren_groups('( ) (( )) (( )( ))'))  # Expected output: ['()', '(())', '(()())']",
+        "from typing import List\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Remove spaces from the input string\n    paren_string = paren_string.replace(\" \", \"\")\n    \n    # Initialize an empty list to hold the separated groups\n    separated_groups = []\n    \n    # Initialize an empty stack\n    stack = []\n    \n    # Iterate through each character in the cleaned-up string\n    for char in paren_string:\n        if char == '(':\n            # Push opening parentheses onto the stack\n            stack.append(char)\n        elif char == ')':\n            # Pop the top element from the stack; if empty, continue\n            if stack:\n                # Append the popped element (corresponding opening parenthesis) to the separated groups\n                separated_groups.append(stack.pop())\n    \n    # Convert the list of separated groups to a tuple and return it\n    return tuple(separated_groups)\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Expected output: ('()', '(())', '(()())')",
+        "def separate_paren_groups(paren_string: str) -> List[str]:\n    # Step 1: Remove leading/trailing spaces and split by space\n    paren_list = paren_string.strip().split()\n    \n    # Step 2 & 3: Check if parentheses are balanced and separate groups\n    result = []\n    current_group = \"\"\n    stack = []\n    \n    for char in paren_list:\n        if char == '(':\n            if len(stack) > 0 and stack[-1] != ')':\n                continue\n            else:\n                stack.append(char)\n                current_group += char\n        elif char == ')':\n            stack.pop()  # Pop from the stack\n        \n        # If no more ')' found and there's an unmatched opening parenthesis left, add it as a single character\n        if not stack and current_group and current_group[0] != '(':\n            result.append(current_group)\n            current_group = \"\"\n    \n    return result\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))",
+        "import re\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Use regular expression to split the string at positions of '('\n    paren_groups = re.split(r'\\(', paren_string)\n    \n    # Filter out empty strings and invalid groups\n    valid_groups = [group for group in paren_groups if group.strip()]\n    \n    return valid_groups\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Output: ['()', '(())', '(()())']",
+        "from typing import List\n\ndef separate_paren_groups(paren_string: str) -> List[str]:\n    # Remove all whitespace characters from the input string\n    paren_string = paren_string.replace(\" \", \"\")\n    \n    # Initialize variables to track current and next group boundaries\n    start_index = 0\n    end_index = 0\n    \n    # Use an empty list to hold the result\n    result = []\n    \n    while end_index < len(paren_string):\n        if paren_string[end_index] == \"(\":\n            # Move forward until we find a corresponding ')'\n            while paren_string[end_index] != \")\":\n                end_index += 1\n            \n            # Extract the current group\n            group = paren_string[start_index:end_index]\n            \n            # Append the extracted group to the result list\n            result.append(group)\n            \n            # Update the start index for the next group\n            start_index = end_index + 1\n        \n        end_index += 1\n    \n    return result\n\n# Test cases\nprint(separate_paren_groups(\"( ) (( )) (( )( ))\"))  # Expected output: ['()', '(())', '(()())']"
+    ]
+}

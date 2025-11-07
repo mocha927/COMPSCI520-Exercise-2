@@ -1,0 +1,66 @@
+{
+    "prompt": "Implement the python function given by this definition:\n\n\ndef make_a_pile(n):\n    \"\"\"\n    Given a positive integer n, you have to make a pile of n levels of stones.\n    The first level has n stones.\n    The number of stones in the next level is:\n        - the next odd number if n is odd.\n        - the next even number if n is even.\n    Return the number of stones in each level in a list, where element at index\n    i represents the number of stones in the level (i+1).\n\n    Examples:\n    >>> make_a_pile(3)\n    [3, 5, 7]\n    \"\"\"\n\n\nLet's think step by step.\n",
+    "test": "import numpy as np\n\ndef is_floats(x) -> bool:\n    # check if it is float; List[float]; Tuple[float]\n    if isinstance(x, float):\n        return True\n    if isinstance(x, (list, tuple)):\n        return all(isinstance(i, float) for i in x)\n    if isinstance(x, np.ndarray):\n        return x.dtype == np.float64 or x.dtype == np.float32\n    return False\n\n\ndef assertion(out, exp, atol):\n    exact_match = out == exp\n\n    if atol == 0 and is_floats(exp):\n        atol = 1e-6\n    if not exact_match and atol != 0:\n        assert np.allclose(out, exp, rtol=1e-07, atol=atol)\n    else:\n        assert exact_match\n\n\ndef ref_func(n):\n\n\n    ans, num = [], n\n    for _ in range(n):\n        ans.append(num)\n        num += 2\n    return ans\n\n\n\ndef check(candidate):\n    inputs = [[3], [4], [5], [6], [8], [1], [2], [10], [15], [20], [100], [12], [25], [50], [14], [16], [9], [24], [99], [21], [51], [52], [22], [73], [17], [101], [72], [98], [97], [53], [13], [96], [92], [102], [23], [11], [93], [49], [78], [86], [71], [95], [94], [70], [77], [69], [79], [103], [68], [37], [18], [36], [67], [91], [35], [90], [48], [54], [87], [19], [85], [84], [55], [7], [104], [38], [74], [39], [83], [66], [80], [105], [47], [109], [65], [42], [89], [46], [40], [88], [82], [108], [110], [64], [111], [26], [57], [58], [63], [59], [45], [106], [41], [81], [62], [107], [56], [43], [75], [30], [32], [33], [29], [34], [31], [76], [27], [28], [44], [1000000], [60], [61]]\n    for i, inp in enumerate(inputs):\n        assertion(candidate(*inp), ref_func(*inp), 0)\n",
+    "results": [
+        {
+            "pass@1": 1.0,
+            "pass@5": 1.0
+        },
+        {
+            "0": [
+                [
+                    0,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 0
+                    }
+                ],
+                [
+                    1,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 1
+                    }
+                ],
+                [
+                    2,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 2
+                    }
+                ],
+                [
+                    3,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 3
+                    }
+                ],
+                [
+                    4,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 4
+                    }
+                ]
+            ]
+        }
+    ],
+    "candidates": [
+        "def make_a_pile(n):\n    levels = [n]\n    for i in range(n-1, -1, -1):\n        next_level = (i + 1) if i % 2 == 0 else (i + 3) // 2\n        levels.append(next_level)\n    return levels",
+        "def make_a_pile(n):\n    stones = [n] * (n+1)\n    if n % 2 == 0:\n        stones[0] = n/2\n    for i in range(1, len(stones)):\n        if n % 2 == 0:\n            stones[i] = stones[i-1] + 2\n        else:\n            stones[i] = stones[i-1] + 1\n    return stones",
+        "def make_a_pile(n):\n    levels = []\n    if n % 2 == 0:\n        levels.append(n)\n    else:\n        levels.append(n+1)\n    return levels",
+        "def make_a_pile(n):\n    levels = n // 2\n    pile = []\n\n    for i in range(levels):\n        if n % 2 == 0:\n            pile.append(n // 2)\n        else:\n            pile.append(n + 1)\n\n    return pile",
+        "def make_a_pile(n):\n    levels = [n]\n    current_level = n\n\n    while current_level > 0:\n        next_level = (current_level - 1) % 2 == 1\n        levels.append(next_level)\n        current_level = (current_level - 1) // 2\n\n    return levels"
+    ]
+}

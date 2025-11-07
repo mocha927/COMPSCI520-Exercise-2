@@ -1,0 +1,117 @@
+{
+    "prompt": "Implement the python function given by this definition:\n\nfrom typing import List\n\n\ndef sort_numbers(numbers: str) -> str:\n    \"\"\" Input is a space-delimited string of numberals from 'zero' to 'nine'.\n    Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n    Return the string with numbers sorted from smallest to largest\n    >>> sort_numbers('three one five')\n    'one three five'\n    \"\"\"\n\n\nLet's think step by step.\n",
+    "test": "\n\nimport numpy as np\n\ndef is_floats(x) -> bool:\n    # check if it is float; List[float]; Tuple[float]\n    if isinstance(x, float):\n        return True\n    if isinstance(x, (list, tuple)):\n        return all(isinstance(i, float) for i in x)\n    if isinstance(x, np.ndarray):\n        return x.dtype == np.float64 or x.dtype == np.float32\n    return False\n\n\ndef assertion(out, exp, atol):\n    exact_match = out == exp\n\n    if atol == 0 and is_floats(exp):\n        atol = 1e-6\n    if not exact_match and atol != 0:\n        assert np.allclose(out, exp, rtol=1e-07, atol=atol)\n    else:\n        assert exact_match\n\n\ndef check(candidate):\n    inputs = [[''], ['three'], ['three five nine'], ['five zero four seven nine eight'], ['six five four three two one zero'], ['four eight two'], ['nine'], ['one six two four nine'], ['two seven eight zero five'], ['nine zero'], ['seven three one'], ['two two three three four five six'], ['zero five four one seven eight two six'], ['nine eight seven six five four three two one zero'], ['two zero nine four five six'], ['nine eight seven six five four one zero'], ['two zero nine'], ['four eight'], ['zero five four one seven'], ['six'], ['two two four five six'], ['zero five four one'], ['zero five seven'], ['four two'], ['four'], ['two six'], ['two two five six'], ['seven'], ['zero five four zero five four one seven eight two six'], ['zero five one seven eight two six'], ['four four eight two'], ['seven three'], ['nine eight seven five four three two one zero'], ['two four five six'], ['zero four one'], ['zero seven eight two six'], ['zero five eight two six'], ['zero'], ['one six'], ['nine six'], ['two seven eight five'], ['two'], ['two three three four five six'], ['zero five four seven'], ['nine eight seven one zero'], ['four five six'], ['two nine'], ['two two three'], ['nine eight seven six five two one zero'], ['zero five six'], ['zero five'], ['zero five two six'], ['zero five four zero four one seven eight two six'], ['four eight two two three'], ['five four one seven eight two six'], ['nine seven six five two one zero'], ['nine eight seven six zero'], ['two nine seven six five two one zero'], ['two four six'], ['nine one zero'], ['four six'], ['zero five four'], ['zero two six'], ['zero five one'], ['nine six five two one zero'], ['two nine eight seven six five four one zero'], ['zero four one seven'], ['two zero nine four zero four one'], ['one zero five six'], ['nine seven six five two zero'], ['two nine eight seven six five four one zero one zero'], ['two nine seven six five two one zero five two six'], ['one'], ['nine eight seven five four three two one'], ['two seven'], ['nine eight seven six'], ['zero five one seven six'], ['nine one zero five four one seven eight two six'], ['zero two'], ['two four zero four one'], ['zero five four zero five four one seven'], ['two two four five'], ['zero one seven eight two six'], ['nine two six'], ['nine one zero five four one six'], ['two two seven eight zero five four five six'], ['two four zero four'], ['two zero six'], ['two three'], ['two nine seven six five two one zero four five six'], ['nine six five two three three four five six one zero'], ['nine eight one zero'], ['two four'], ['four two nine eight seven six five four one zero'], ['two two'], ['nine seven six five two one'], ['one six two nine'], ['zero five four one seven eight six'], ['nine seven four six'], ['five six'], ['two zero nine four one'], ['zero five four one eight two six'], ['nine one zero five four one'], ['one two three four five six seven eight nine'], ['nine eight seven six five four three two one'], ['five seven eight six nine four zero two one three'], ['four six nine eight seven one five zero two three'], ['seven one zero five two four eight six nine three'], ['zero one two three four five six seven eight nine'], ['two four six eight zero one three five seven nine'], ['nine seven five three one eight six four two zero'], ['one zero three four two six five seven eight nine'], ['seven five zero four nine eight two six one three'], ['five'], ['eight'], ['four six nine eight five zero two three'], ['one two three three'], ['two nine eight seven six five four three two one seven nine'], ['zero one two five six seven eight nine'], ['five four six nine eight seven one five zero two three two one three'], ['nine eight seven six five four two one'], ['one two one four'], ['one one one one one'], ['one two'], ['four four two six nine two zero'], ['nine eight seven six five two three two one'], ['nine eight seven two one'], ['one zero three nine'], ['nine eight'], ['seven one zero five three'], ['zero two three']]\n    results = ['', 'three', 'three five nine', 'zero four five seven eight nine', 'zero one two three four five six', 'two four eight', 'nine', 'one two four six nine', 'zero two five seven eight', 'zero nine', 'one three seven', 'two two three three four five six', 'zero one two four five six seven eight', 'zero one two three four five six seven eight nine', 'zero two four five six nine', 'zero one four five six seven eight nine', 'zero two nine', 'four eight', 'zero one four five seven', 'six', 'two two four five six', 'zero one four five', 'zero five seven', 'two four', 'four', 'two six', 'two two five six', 'seven', 'zero zero one two four four five five six seven eight', 'zero one two five six seven eight', 'two four four eight', 'three seven', 'zero one two three four five seven eight nine', 'two four five six', 'zero one four', 'zero two six seven eight', 'zero two five six eight', 'zero', 'one six', 'six nine', 'two five seven eight', 'two', 'two three three four five six', 'zero four five seven', 'zero one seven eight nine', 'four five six', 'two nine', 'two two three', 'zero one two five six seven eight nine', 'zero five six', 'zero five', 'zero two five six', 'zero zero one two four four five six seven eight', 'two two three four eight', 'one two four five six seven eight', 'zero one two five six seven nine', 'zero six seven eight nine', 'zero one two two five six seven nine', 'two four six', 'zero one nine', 'four six', 'zero four five', 'zero two six', 'zero one five', 'zero one two five six nine', 'zero one two four five six seven eight nine', 'zero one four seven', 'zero zero one two four four nine', 'zero one five six', 'zero two five six seven nine', 'zero zero one one two four five six seven eight nine', 'zero one two two two five five six six seven nine', 'one', 'one two three four five seven eight nine', 'two seven', 'six seven eight nine', 'zero one five six seven', 'zero one one two four five six seven eight nine', 'zero two', 'zero one two four four', 'zero zero one four four five five seven', 'two two four five', 'zero one two six seven eight', 'two six nine', 'zero one one four five six nine', 'zero two two four five five six seven eight', 'zero two four four', 'zero two six', 'two three', 'zero one two two four five five six six seven nine', 'zero one two three three four five five six six nine', 'zero one eight nine', 'two four', 'zero one two four four five six seven eight nine', 'two two', 'one two five six seven nine', 'one two six nine', 'zero one four five six seven eight', 'four six seven nine', 'five six', 'zero one two four nine', 'zero one two four five six eight', 'zero one one four five nine', 'one two three four five six seven eight nine', 'one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'zero one two three four five six seven eight nine', 'five', 'eight', 'zero two three four five six eight nine', 'one two three three', 'one two two three four five six seven seven eight nine nine', 'zero one two five six seven eight nine', 'zero one one two two three three four five five six seven eight nine', 'one two four five six seven eight nine', 'one one two four', 'one one one one one', 'one two', 'zero two two four four six nine', 'one two two three five six seven eight nine', 'one two seven eight nine', 'zero one three nine', 'eight nine', 'zero one three five seven', 'zero two three']\n    for i, (inp, exp) in enumerate(zip(inputs, results)):\n        assertion(candidate(*inp), exp, 0)\n",
+    "results": [
+        {
+            "pass@1": 0.4,
+            "pass@5": 0.9761904761904762,
+            "pass@10": 1.0
+        },
+        {
+            "0": [
+                [
+                    0,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: invalid literal for int() with base 10: 'three'",
+                        "completion_id": 0
+                    }
+                ],
+                [
+                    1,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: invalid literal for int() with base 10: 'three'",
+                        "completion_id": 1
+                    }
+                ],
+                [
+                    2,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: '1'",
+                        "completion_id": 2
+                    }
+                ],
+                [
+                    3,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: invalid literal for int() with base 10: 'three'",
+                        "completion_id": 3
+                    }
+                ],
+                [
+                    4,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: ",
+                        "completion_id": 4
+                    }
+                ],
+                [
+                    5,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 5
+                    }
+                ],
+                [
+                    6,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 6
+                    }
+                ],
+                [
+                    7,
+                    {
+                        "task_id": 0,
+                        "passed": false,
+                        "result": "failed: list indices must be integers or slices, not list",
+                        "completion_id": 7
+                    }
+                ],
+                [
+                    8,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 8
+                    }
+                ],
+                [
+                    9,
+                    {
+                        "task_id": 0,
+                        "passed": true,
+                        "result": "passed",
+                        "completion_id": 9
+                    }
+                ]
+            ]
+        }
+    ],
+    "candidates": [
+        "def sort_numbers(numbers: str) -> str:\n    # Convert the input string to a list of integers\n    nums = [int(num) for num in numbers.split()]\n    \n    # Sort the list of numbers\n    nums.sort()\n    \n    # Map each number to its word representation\n    mapping = {\n        0: \"zero\", 1: \"one\", 2: \"two\", 3: \"three\",\n        4: \"four\", 5: \"five\", 6: \"six\", 7: \"seven\",\n        8: \"eight\", 9: \"nine\"\n    }\n    \n    # Join the sorted numbers into a single string\n    result = ' '.join([mapping[num] for num in nums])\n    \n    return result\n\n# Test cases\nprint(sort_numbers('three one five'))  # Expected output: 'one three five'",
+        "from typing import List\n\ndef sort_numbers(numbers: str) -> str:\n    \"\"\"Input is a space-delimited string of numberals from 'zero' to 'nine'.\n    Valid choices are 'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight' and 'nine'.\n    Return the string with numbers sorted from smallest to largest\"\"\"\n    \n    # Convert the input string into a list of integers\n    num_list = [int(word) for word in numbers.split()]\n    \n    # Sort the list of numbers\n    num_list.sort()\n    \n    # Convert the list of integers back into a string\n    sorted_str = ''.join(str(num) for num in num_list)\n    \n    return sorted_str\n\n# Check function to verify correctness\ndef check():\n    assert sort_numbers(\"three one five\") == \"one three five\"\n    assert sort_numbers(\"nine seven six\") == \"six seven nine\"\n    assert sort_numbers(\"zero two four eight\") == \"zero two four eight\"\n    assert sort_numbers(\"\") == \"\"\n    assert sort_numbers(\"one two\") == \"one two\"\n\ncheck()",
+        "from typing import List\n\ndef sort_numbers(numbers: str) -> str:\n    # Define a dictionary mapping digits to their words\n    digit_to_word = {\n        \"zero\": 0,\n        \"one\": 1,\n        \"two\": 2,\n        \"three\": 3,\n        \"four\": 4,\n        \"five\": 5,\n        \"six\": 6,\n        \"seven\": 7,\n        \"eight\": 8,\n        \"nine\": 9\n    }\n    \n    # Split the input string into individual numbers\n    numbers_list = numbers.split()\n    \n    # Convert the list of strings back to integers using our mapping\n    int_numbers = [digit_to_word[number] for number in numbers_list]\n    \n    # Sort the list of integers\n    sorted_integers = sorted(int_numbers)\n    \n    # Map the sorted integers back to their corresponding words\n    sorted_words = [digit_to_word[str(num)] for num in sorted_integers]\n    \n    # Join the sorted words into a single string\n    return ' '.join(sorted_words)\n\n# Test cases\nprint(sort_numbers('three one five'))  # Output: one three five",
+        "from typing import List\n\ndef sort_numbers(numbers: str) -> str:\n    # Mapping of digit strings to their corresponding names\n    num_to_name = {\n        \"zero\": \"0\",\n        \"one\": \"1\",\n        \"two\": \"2\",\n        \"three\": \"3\",\n        \"four\": \"4\",\n        \"five\": \"5\",\n        \"six\": \"6\",\n        \"seven\": \"7\",\n        \"eight\": \"8\",\n        \"nine\": \"9\"\n    }\n    \n    # Convert the input string to a list of integers\n    num_list = [int(num) for num in numbers.split()]\n    \n    # Sort the list of numbers\n    num_list.sort()\n    \n    # Map each number to its name and join them into a string\n    sorted_names = ' '.join([num_to_name[str(n)] for n in num_list])\n    \n    return sorted_names\n\n# Test cases\nprint(sort_numbers('three one five'))  # Expected output: 'one three five'",
+        "# Step 1: Mapping letters to integers\n\ndigit_map = {\n    \"zero\": 0,\n    \"one\": 1,\n    \"two\": 2,\n    \"three\": 3,\n    \"four\": 4,\n    \"five\": 5,\n    \"six\": 6,\n    \"seven\": 7,\n    \"eight\": 8,\n    \"nine\": 9\n}\n\ndef sort_numbers(numbers: str) -> str:\n    \"\"\"\n    Sorts a space-separated string of numerals ('zero' to 'nine') from smallest to largest.\n    \n    Args:\n        numbers (str): A space-delimited string of numeral characters ('zero' to 'nine').\n        \n    Returns:\n        str: A single string with the numerals sorted from smallest to largest.\n    \"\"\"\n\n    # Convert the input string to a list of integers\n    num_list = [digit_map[char] for char in numbers.split()]\n    \n    # Sort the list of integers\n    sorted_num_list = sorted(num_list)\n    \n    # Construct the final string from sorted integers\n    sorted_str = ''.join(str(num) for num in sorted_num_list)\n    \n    return sorted_str\n\n# Test cases to verify correctness\nassert sort_numbers(\"three one five\") == \"one three five\"\nassert sort_numbers(\"nine eight seven six\") == \"six seven eight nine\"\nassert sort_numbers(\"one two zero\") == \"zero one two\"\nprint(\"All tests passed.\")",
+        "from typing import List\n\ndef sort_numbers(numbers: str) -> str:\n    # Mapping of words to numbers\n    num_map = {\n        \"zero\": 0,\n        \"one\": 1,\n        \"two\": 2,\n        \"three\": 3,\n        \"four\": 4,\n        \"five\": 5,\n        \"six\": 6,\n        \"seven\": 7,\n        \"eight\": 8,\n        \"nine\": 9\n    }\n    \n    # Splitting the input string into individual words\n    words = numbers.split()\n    \n    # Converting words to numbers and storing in a list\n    nums = [num_map[word] for word in words]\n    \n    # Sorting the list of numbers\n    nums.sort()\n    \n    # Joining the sorted numbers back into a string\n    result = ''.join(str(num) for num in nums)\n    \n    return result\n\n# Example usage\nprint(sort_numbers(\"three one five\"))",
+        "def sort_numbers(numbers: str) -> str:\n    # Define a dictionary that maps numeric strings to their corresponding values (numbers)\n    num_map = {\n        \"zero\": 0,\n        \"one\": 1,\n        \"two\": 2,\n        \"three\": 3,\n        \"four\": 4,\n        \"five\": 5,\n        \"six\": 6,\n        \"seven\": 7,\n        \"eight\": 8,\n        \"nine\": 9\n    }\n    \n    # Split the input string into individual words\n    words = numbers.split()\n    \n    # Convert each word to its numerical value using the mapping dictionary\n    num_list = [num_map[word] for word in words]\n    \n    # Sort the list of numbers in ascending order\n    num_list.sort()\n    \n    # Convert each number back to its word representation and join them together\n    sorted_string = ' '.join([str(num) if isinstance(num, int) else num for num in num_list])\n    \n    return sorted_string\n\n# Test cases\nprint(sort_numbers('three one five'))  # Output should be 'one three five'",
+        "from typing import *\nimport re\n\ndef sort_numbers(numbers: str) -> str:\n    # Step 1: Parse the input string into a list of integers\n    numbers_list = [int(num) for num in re.findall(r'\\d+', numbers)]\n    \n    # Step 2: Sort the list of integers\n    sorted_list = sorted(numbers_list)\n    \n    # Step 3: Convert each integer to its corresponding word\n    sorted_words = ['zero'] + ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'][sorted_list]\n    \n    # Step 4: Join the sorted words into a single string\n    return ' '.join(sorted_words)\n\n# Example usage\nprint(sort_numbers('three one five'))  # Output: one three five",
+        "from typing import List\n\ndef sort_numbers(numbers: str) -> str:\n    # Initialize an empty list to hold the sorted integers\n    sorted_numbers = []\n    \n    # Iterate through each character in the input string\n    for char in numbers:\n        # Check if the current character is a digit\n        if char.isdigit():\n            # Convert the character to its corresponding integer value\n            num = int(char)\n            # Append the integer value to the sorted_numbers list\n            sorted_numbers.append(num)\n\n    # Sort the list of integers in ascending order\n    sorted_numbers.sort()\n\n    # Join the sorted list into a single string with spaces between elements\n    sorted_string = ' '.join(map(str, sorted_numbers))\n\n    # Return the final sorted string\n    return sorted_string",
+        "from typing import List\n\ndef sort_numbers(numbers: str) -> str:\n    # Define a mapping for number words to their numeric values\n    number_map = {\n        \"zero\": 0,\n        \"one\": 1,\n        \"two\": 2,\n        \"three\": 3,\n        \"four\": 4,\n        \"five\": 5,\n        \"six\": 6,\n        \"seven\": 7,\n        \"eight\": 8,\n        \"nine\": 9\n    }\n    \n    # Split the input string into individual number strings\n    number_strings = numbers.split()\n    \n    # Convert each number string to an integer using the map function\n    int_numbers = [number_map[number] for number in number_strings]\n    \n    # Sort the list of integers\n    sorted_integers = sorted(int_numbers)\n    \n    # Convert each integer back to its corresponding word representation\n    result = ' '.join([str(number) if number != 0 else 'zero' for number in sorted_integers])\n    \n    return result\n\n# Test cases\nprint(sort_numbers('three one five'))  # Output: 'one three five'"
+    ]
+}
