@@ -3,7 +3,7 @@ def below_threshold(l: list, t: int) -> bool:
         raise ValueError("Input must be a list")
     if len(l) < 1:
         return False
-    if l[0] >= t:
+    if l[0] > t: # introduce boundary fault here
         return False
     for i in range(1, len(l)):
         if l[i] >= t:
