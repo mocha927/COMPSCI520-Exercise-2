@@ -176,7 +176,12 @@ def mrkd2json(inp):
             ret.append({keys[_i]:v.strip() for _i,v in enumerate(l.split('|')) if  _i>0 and _i<len(keys)-1})
     return ret
 
-def get_coverages(reports_path='reports', results_path="results", output_path="coverage.xlsx"):
+def get_coverages(
+    reports_path='reports',
+    results_path="results",
+    output_path="coverage.xlsx",
+    code_output_dir="code"
+):
     from glob import glob
     import os
     import json
@@ -274,6 +279,16 @@ def get_coverages(reports_path='reports', results_path="results", output_path="c
     with open('low_coverage_results.json', 'w') as f:
         json.dump([test_results[top_two[0]],
             test_results[top_two[1]]], f)
+    
+    if not os.path.exists(code_output_dir):
+        os.mkdir(code_output_dir)
+
+    # create code outputs for low coverage generated code
+    with open(os.path.join(code_output_dir, test_results[top_two[0]]['name'] + '.py'), 'w') as f:
+        f.write(test_results[top_two[0]]['code'])
+
+    with open(os.path.join(code_output_dir, test_results[top_two[1]]['name'] + '.py'), 'w') as f:
+        f.write(test_results[top_two[1]]['code'])
 
 def main():
     # read_results()
