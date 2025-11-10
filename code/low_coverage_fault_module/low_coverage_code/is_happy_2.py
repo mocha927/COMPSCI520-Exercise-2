@@ -4,6 +4,6 @@ def is_happy(s):
     else:
         distinct_count = 0
         for i in range(len(s)-2):
-            if s[i:i+3] == s[i+1] or s[i:i+3] == s[i+1]: # introduce off-by-one fault for right term in second conditional
+            if s[i:i+3] == s[i+1:] or s[i:i+3] == s[i+2]: # introduce erroneous slicing fault
                 distinct_count += 1
         return distinct_count == 3
