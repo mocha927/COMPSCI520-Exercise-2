@@ -142,16 +142,16 @@ def pycov_test_module(
 # - A one-line interpretation (e.g., “low branch coverage due to untested error path”).
 # 3. Include a single summary table across all problems (problem → line %, branch %, notes).
 
-def execute_coverage_tests():
+def execute_coverage_tests(scripts_path='scripts', reports_path='reports'):
     from glob import glob
     import os
 
     # get all modules
-    test_dirs = glob(os.path.join('scripts', '*'))
+    test_dirs = glob(os.path.join(scripts_path, '*'))
 
     # create reports directory if not existing
-    if not os.path.exists('reports'):
-        os.mkdir('reports')
+    if not os.path.exists(reports_path):
+        os.mkdir(reports_path)
 
     # loop through all modules and run coverage tests on them
     for d in test_dirs:
@@ -159,10 +159,10 @@ def execute_coverage_tests():
         module_name = os.path.split(d)[-1]
 
         # get path for reports
-        reports_path = os.path.join(os.getcwd(), 'reports', f"{module_name}_coverage.md")
+        report_path = os.path.join(os.getcwd(), 'reports', f"{module_name}_coverage.md")
 
         # run pytest coverage test and write results to output path
-        pycov_test_module(d, module_name, reports_path)
+        pycov_test_module(d, module_name, report_path)
 
 def mrkd2json(inp):
     lines = inp.split('\n')
@@ -182,7 +182,7 @@ def get_coverages(reports_path='reports', results_path="results", output_path="c
     import json
     import pandas as pd
     import numpy as np
-    import re
+    import json
 
     # get paths to all json results
     results_dir = glob(os.path.join(reports_path, "*coverage.md"))
@@ -211,8 +211,8 @@ def get_coverages(reports_path='reports', results_path="results", output_path="c
                 name = ''.join(stats['Name'].split('\\')).split(pre)[-1].split('.')[0]
                 if test_result[pre].get(name) is None:
                     test_result[pre][name] = {}
-                    test_result[pre][name]['cover'] = 1 - float(stats['Cover'].split("%")[0]) / 100
-                    test_result[pre][name]['branch'] = float(int(stats['BrPart']) / (1e-8 + int(stats['Branch'])))
+                    test_result[pre][name]['cover'] = float(stats['Cover'].split("%")[0]) / 100
+                    test_result[pre][name]['branch'] = 1 - float(int(stats['BrPart']) / (1e-8 + int(stats['Branch'])))
         with open(acc, "r") as f:
             # load json report
             j = json.load(f)
@@ -261,18 +261,19 @@ def get_coverages(reports_path='reports', results_path="results", output_path="c
     # save to excel sheet
     pd.DataFrame(test_results).to_excel(output_path)
 
-    # sort by metric descending
+    # sort by branch cover ascending
     metric = np.argsort([
-        abs(res['cover'] - res['accuracy'])*res['accuracy']
+        res['branch']
         for res in test_results
-    ])[::-1]
+    ])
 
+    # get top two
+    top_two = metric[:2]
 
-    # get lowest two coverages
-    worst_two = metric[:2]
-
-    # print(test_results[worst_two[0]])
-    # print(test_results[worst_two[1]])    
+    # dump low coverage results
+    with open('low_coverage_results.json', 'w') as f:
+        json.dump([test_results[top_two[0]],
+            test_results[top_two[1]]], f)
 
 def main():
     # read_results()
