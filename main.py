@@ -291,8 +291,8 @@ def get_coverages(
         f.write(test_results[top_two[1]]['code'])
 
 def main():
-    # read_results()
-    # execute_coverage_tests()
+    read_results()
+    execute_coverage_tests()
     get_coverages()
 
 if __name__ == "__main__":
